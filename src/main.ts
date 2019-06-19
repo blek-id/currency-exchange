@@ -10,8 +10,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 //Add icons to library
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 library.add(faTimes);
+library.add(faMinusCircle);
 
 //Registering fontawesome component
 Vue.component('font-awesome-icon', FontAwesomeIcon);

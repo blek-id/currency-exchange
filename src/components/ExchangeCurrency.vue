@@ -1,7 +1,7 @@
 <template>
   <div class="row mx-auto my-3 border border-dark rounded">
     <div class="col-10 col-md-11">
-      <div class="row my-1">
+      <div class="row h4">
         <div class="col-6">
           <span>{{targetCurrency.code}}</span>
         </div>
@@ -9,22 +9,22 @@
           <span>{{formatCurrency(targetCurrency.exchangeAmount)}}</span>
         </div>
       </div>
-      <div class="row my-1">
+      <div class="row font-italic font-weight-bold">
         <div class="col-12">
           <span>{{targetCurrency.code}} - {{targetCurrency.name}}</span>
         </div>
       </div>
-      <div class="row my-1">
+      <div class="row">
         <div class="col-12">
           <span>1 USD = {{targetCurrency.code}} {{targetCurrency.rateAgainstBase}}</span>
         </div>
       </div>
     </div>
     <div
-      class="col-2 col-md-1 d-flex justify-content-center align-items-center btn btn-danger rounded-0"
+      class="col-2 col-md-1 d-flex justify-content-center align-items-center btn btn-danger rounded-0 pointer-cursor"
       @click="destroyCurrency(targetCurrency.code)"
     >
-      <font-awesome-icon icon="times" size="lg" class="color-white"/>
+      <font-awesome-icon icon="minus-circle" size="lg" class="color-white"/>
     </div>
   </div>
 </template>
@@ -58,5 +58,9 @@ export default Vue.extend({
 <style scoped lang="scss">
 .color-white {
   color: white;
+}
+
+.pointer-cursor {
+  cursor: pointer;
 }
 </style>

@@ -3,12 +3,12 @@
     <div class="col-12">
       <div class="row py-3">
         <div class="col-12">
-          <span>USD - United State Dollars</span>
+          <span class="font-italic">USD - United State Dollars</span>
         </div>
       </div>
       <form class="row border-bottom pb-3">
         <div class="col-4 my-auto">
-          <span>USD</span>
+          <span class="h2">USD</span>
         </div>
         <div class="col-8">
           <input type="number" placeholder="0.00" v-model="baseAmount" class="form-control">
