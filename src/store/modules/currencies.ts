@@ -49,7 +49,12 @@ const getters = {
 const actions = {
     async fetchCurrencies({ commit }: any, code: string) {
 
-        commit('updateAvailableExchanges', code)
+        let payload = {
+            code: code,
+            isActive: true
+        }
+        commit('updateAvailableExchanges', payload);
+
 
         let activeExchangeCodes = state.availableExchanges.filter(availableExchange => availableExchange.isActive).map(availableExchange => availableExchange.code);
 
@@ -85,20 +90,13 @@ const mutations = {
     },
     removeCurrency(state: any, code: string) {
         state.currencies = state.currencies.filter((currency: CurrencyModel) => currency.code !== code);
-        let selectedExchangeIndex = state.availableExchanges.findIndex((availableExchange: any) => availableExchange.code == code);
-
-        state.availableExchanges = [
-            ...state.availableExchanges.slice(0, selectedExchangeIndex),
-            { code: code, isActive: false },
-            ...state.availableExchanges.slice(selectedExchangeIndex + 1)
-        ];
     },
-    updateAvailableExchanges(state: any, code: string) {
-        let selectedExchangeIndex = state.availableExchanges.findIndex((availableExchange: any) => availableExchange.code == code);
+    updateAvailableExchanges(state: any, payload: any) {
+        let selectedExchangeIndex = state.availableExchanges.findIndex((availableExchange: any) => availableExchange.code == payload.code);
 
         state.availableExchanges = [
             ...state.availableExchanges.slice(0, selectedExchangeIndex),
-            { code: code, isActive: true },
+            { code: payload.code, isActive: payload.isActive },
             ...state.availableExchanges.slice(selectedExchangeIndex + 1)
         ];
     }

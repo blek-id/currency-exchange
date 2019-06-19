@@ -22,7 +22,7 @@
     </div>
     <div
       class="col-2 col-md-1 d-flex justify-content-center align-items-center btn btn-danger rounded-0"
-      @click="removeCurrency(exchangeCurrency.code)"
+      @click="destroyCurrency(exchangeCurrency.code)"
     >
       <font-awesome-icon icon="times" size="lg" class="color-white"/>
     </div>
@@ -32,7 +32,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { CurrencyModel } from "@/models/CurrencyModel";
-import { mapMutations } from "vuex";
+import { mapMutations, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "ExchangeCurrency",
@@ -43,7 +43,14 @@ export default Vue.extend({
     formatCurrency(amount: number) {
       return amount.toLocaleString(undefined, { maximumFractionDigits: 2 });
     },
-    ...mapMutations("currencies", ["removeCurrency"])
+    destroyCurrency(code: string) {
+      this.$store.commit("currencies/removeCurrency", code);
+      let payload = {
+        code: code,
+        isActive: false
+      };
+      this.$store.commit("currencies/updateAvailableExchanges", payload);
+    }
   }
 });
 </script>
