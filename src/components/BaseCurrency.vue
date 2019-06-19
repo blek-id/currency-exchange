@@ -11,7 +11,7 @@
           <span>USD</span>
         </div>
         <div class="col-8">
-          <input type="number" placeholder="0.00" id="baseCurrency" class="form-control">
+          <input type="number" placeholder="0.00" v-model="baseAmount" class="form-control">
         </div>
       </form>
     </div>
@@ -20,9 +20,20 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { mapState, mapMutations } from "vuex";
 
 export default Vue.extend({
-  name: "BaseCurrency"
+  name: "BaseCurrency",
+  computed: {
+    baseAmount: {
+      get(): number {
+        return this.$store.state.currencies.message;
+      },
+      set(value: number) {
+        this.$store.commit("currencies/setBaseAmount", value);
+      }
+    }
+  }
 });
 </script>
 

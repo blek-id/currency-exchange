@@ -1,41 +1,55 @@
 <template>
-  <div class="row mx-auto my-3 border border-dark rounded align-items-center">
+  <div class="row mx-auto my-3 border border-dark rounded">
     <div class="col-10 col-md-11">
       <div class="row my-1">
         <div class="col-6">
-          <span>IDR</span>
+          <span>{{exchangeCurrency.code}}</span>
         </div>
         <div class="col-6 text-right">
-          <span>144,104.50</span>
+          <span>{{formatCurrency(exchangeCurrency.exchangeAmount)}}</span>
         </div>
       </div>
       <div class="row my-1">
         <div class="col-12">
-          <span>IDR - Indonesian Rupiah</span>
+          <span>{{exchangeCurrency.name}}</span>
         </div>
       </div>
       <div class="row my-1">
         <div class="col-12">
-          <span>1 USD = IDR 14,410.45</span>
+          <span>1 USD = {{exchangeCurrency.code}} {{exchangeCurrency.rateAgainstBase}}</span>
         </div>
       </div>
     </div>
-    <div class="col-2 col-md-1 bg-danger">
-      <font-awesome-icon icon="times" size="lg"/>
+    <div
+      class="col-2 col-md-1 d-flex justify-content-center align-items-center btn btn-danger rounded-0"
+      @click="removeCurrency(exchangeCurrency.code)"
+    >
+      <font-awesome-icon icon="times" size="lg" class="color-white"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import { CurrencyModel } from "@/models/CurrencyModel";
+import { mapMutations } from "vuex";
 
 export default Vue.extend({
-  name: "ExchangeCurrency"
+  name: "ExchangeCurrency",
+  props: {
+    exchangeCurrency: Object as () => CurrencyModel
+  },
+  methods: {
+    formatCurrency(amount: number) {
+      return amount.toLocaleString(undefined, { maximumFractionDigits: 2 });
+    },
+    ...mapMutations("currencies", ["removeCurrency"])
+  }
 });
 </script>
 
 <style scoped lang="scss">
-.card-height {
-  min-height: 5rem;
+.color-white {
+  color: white;
 }
 </style>
