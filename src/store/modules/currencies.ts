@@ -27,17 +27,17 @@ const state = {
     currencies: [{}],
     baseAmount: 0.00,
     availableExchanges: [
-        { code: "IDR", isActive: false },
+        { code: "CAD", isActive: false },
+        { code: "CHF", isActive: false },
         { code: "EUR", isActive: false },
         { code: "GBP", isActive: false },
-        { code: "SGD", isActive: false },
-        { code: "CAD", isActive: false },
+        { code: "IDR", isActive: false },
+        { code: "INR", isActive: false },
         { code: "JPY", isActive: false },
         { code: "KRW", isActive: false },
-        { code: "INR", isActive: false },
-        { code: "CHF", isActive: false },
-        { code: "USD", isActive: false },
-        { code: "MYR", isActive: false }
+        { code: "MYR", isActive: false },
+        { code: "SGD", isActive: false },
+        { code: "USD", isActive: false }
     ]
 };
 
@@ -49,11 +49,7 @@ const getters = {
 const actions = {
     async fetchCurrencies({ commit }: any, code: string) {
 
-        state.availableExchanges = [
-            ...state.availableExchanges.filter(availableExchange => availableExchange.code != code),
-            { code: code, isActive: true }
-        ];
-
+        commit('updateAvailableExchanges', code)
 
         let activeExchangeCodes = state.availableExchanges.filter(availableExchange => availableExchange.isActive).map(availableExchange => availableExchange.code);
 
@@ -72,17 +68,14 @@ const actions = {
 
             state.currencies.push(currentExchange);
         });
-        let payload = {
-            currencies: state.currencies,
-            code: code
-        }
-        commit('setCurrencies', payload);
+
+        commit('setCurrencies', state.currencies);
     }
 };
 
 const mutations = {
-    setCurrencies(state: any, payload: any) {
-        state.currencies = payload.currencies;
+    setCurrencies(state: any, currencies: any) {
+        state.currencies = currencies;
     },
     setBaseAmount(state: any, baseAmount: number) {
         state.currencies.forEach((currency: any) => {
@@ -92,9 +85,21 @@ const mutations = {
     },
     removeCurrency(state: any, code: string) {
         state.currencies = state.currencies.filter((currency: CurrencyModel) => currency.code !== code);
+        let selectedExchangeIndex = state.availableExchanges.findIndex((availableExchange: any) => availableExchange.code == code);
+
         state.availableExchanges = [
-            ...state.availableExchanges.filter((availableExchange: CurrencyModel) => availableExchange.code != code),
-            { code: code, isActive: false }
+            ...state.availableExchanges.slice(0, selectedExchangeIndex),
+            { code: code, isActive: false },
+            ...state.availableExchanges.slice(selectedExchangeIndex + 1)
+        ];
+    },
+    updateAvailableExchanges(state: any, code: string) {
+        let selectedExchangeIndex = state.availableExchanges.findIndex((availableExchange: any) => availableExchange.code == code);
+
+        state.availableExchanges = [
+            ...state.availableExchanges.slice(0, selectedExchangeIndex),
+            { code: code, isActive: true },
+            ...state.availableExchanges.slice(selectedExchangeIndex + 1)
         ];
     }
 };
