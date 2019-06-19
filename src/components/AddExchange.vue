@@ -48,7 +48,6 @@ export default Vue.extend({
     ...mapGetters("currencies", ["getAvailableExchanges"])
   },
   methods: {
-    ...mapActions("currencies", ["fetchCurrencies"]),
     toggleAddCurrency(isAddingCurrency: boolean) {
       this.isAddingCurrency = isAddingCurrency;
     },

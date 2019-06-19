@@ -1,18 +1,7 @@
 import axios from 'axios';
 import { CurrencyModel } from '@/models/CurrencyModel';
+import { currencyNames } from '@/util/currencyNames';
 
-let CountryNameMap = new Map();
-CountryNameMap.set("IDR", "Indonesian Rupiah");
-CountryNameMap.set("EUR", "Euro");
-CountryNameMap.set("GBP", "Pound Sterling");
-CountryNameMap.set("SGD", "Singapore Dollar");
-CountryNameMap.set("USD", "United States Dollar");
-CountryNameMap.set("CAD", "Canadian Dollar");
-CountryNameMap.set("JPY", "Japanese Yen");
-CountryNameMap.set("KRW", "South Korean Won");
-CountryNameMap.set("MYR", "Malaysian Ringgit");
-CountryNameMap.set("CHF", "Swiss Franc");
-CountryNameMap.set("INR", "Indian Rupee");
 
 function toggleExchangesAvailability(code: string, isActive: boolean) {
     let selectedExchangeIndex = state.availableExchanges.findIndex(availableExchange => availableExchange.code == code);
@@ -66,7 +55,7 @@ const actions = {
         activeExchangeCodes.forEach(activeExchangeCode => {
             let currentExchange: CurrencyModel = {
                 code: activeExchangeCode,
-                name: CountryNameMap.get(activeExchangeCode),
+                name: currencyNames.get(activeExchangeCode),
                 rateAgainstBase: rawExchangeData.rates[activeExchangeCode],
                 exchangeAmount: rawExchangeData.rates[activeExchangeCode] * state.baseAmount
             };
