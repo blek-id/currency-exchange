@@ -1,10 +1,15 @@
 <template>
-  <!-- <div class="row">
+  <div class="row my-4" v-if="!isAddingCurrency">
     <div class="col-12">
-      <input type="button" class="btn btn-block btn-success" value="Add More Currencies">
+      <input
+        type="button"
+        class="btn btn-block btn-success"
+        @click="toggleAddCurrency(true)"
+        value="Add More Currencies"
+      >
     </div>
-  </div>-->
-  <div class="row">
+  </div>
+  <div class="row my-4" v-else>
     <div class="col-12">
       <div class="input-group row no-gutters">
         <select class="form-control col-9" v-model="selectedCurrency">
@@ -18,7 +23,7 @@
           <input
             class="btn btn-outline-success btn-block"
             type="button"
-            @click="fetchCurrencies(selectedCurrency)"
+            @click="addCurrency()"
             value="Submit"
           >
         </div>
@@ -35,14 +40,22 @@ export default Vue.extend({
   name: "AddExchange",
   data: function() {
     return {
-      selectedCurrency: ""
+      selectedCurrency: "",
+      isAddingCurrency: false
     };
   },
   computed: {
     ...mapGetters("currencies", ["getAvailableExchanges"])
   },
   methods: {
-    ...mapActions("currencies", ["fetchCurrencies"])
+    ...mapActions("currencies", ["fetchCurrencies"]),
+    toggleAddCurrency(isAddingCurrency: boolean) {
+      this.isAddingCurrency = isAddingCurrency;
+    },
+    addCurrency() {
+      this.$store.dispatch("currencies/fetchCurrencies", this.selectedCurrency);
+      this.toggleAddCurrency(false);
+    }
   }
 });
 </script>

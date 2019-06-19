@@ -11,7 +11,7 @@
       </div>
       <div class="row my-1">
         <div class="col-12">
-          <span>{{exchangeCurrency.name}}</span>
+          <span>{{exchangeCurrency.code}} - {{exchangeCurrency.name}}</span>
         </div>
       </div>
       <div class="row my-1">

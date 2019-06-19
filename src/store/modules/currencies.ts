@@ -25,7 +25,7 @@ function toggleExchangesAvailability(code: string, isActive: boolean) {
 
 const state = {
     currencies: [{}],
-    baseAmount: 0.00,
+    baseAmount: 10.00,
     availableExchanges: [
         { code: "CAD", isActive: false },
         { code: "CHF", isActive: false },
