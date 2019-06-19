@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <base-currency/>
     <div v-for="currency in getCurrencies" :key="currency.code">
-      <exchange-currency :exchange-currency="currency"/>
+      <exchange-currency :target-currency="currency" v-if="currency.code !== ''"/>
     </div>
     <add-exchange/>
   </div>
@@ -14,7 +14,7 @@ import BaseCurrency from "@/components/BaseCurrency.vue";
 import ExchangeCurrency from "@/components/ExchangeCurrency.vue";
 import AddExchange from "@/components/AddExchange.vue";
 
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default Vue.extend({
   name: "exchange",
@@ -23,9 +23,6 @@ export default Vue.extend({
     ExchangeCurrency,
     AddExchange
   },
-  computed: mapGetters("currencies", ["getCurrencies"]),
-  methods: {
-    ...mapActions("currencies", ["fetchCurrencies"])
-  }
+  computed: mapGetters("currencies", ["getCurrencies"])
 });
 </script>

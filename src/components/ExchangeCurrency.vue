@@ -3,26 +3,26 @@
     <div class="col-10 col-md-11">
       <div class="row my-1">
         <div class="col-6">
-          <span>{{exchangeCurrency.code}}</span>
+          <span>{{targetCurrency.code}}</span>
         </div>
         <div class="col-6 text-right">
-          <span>{{formatCurrency(exchangeCurrency.exchangeAmount)}}</span>
+          <span>{{formatCurrency(targetCurrency.exchangeAmount)}}</span>
         </div>
       </div>
       <div class="row my-1">
         <div class="col-12">
-          <span>{{exchangeCurrency.code}} - {{exchangeCurrency.name}}</span>
+          <span>{{targetCurrency.code}} - {{targetCurrency.name}}</span>
         </div>
       </div>
       <div class="row my-1">
         <div class="col-12">
-          <span>1 USD = {{exchangeCurrency.code}} {{exchangeCurrency.rateAgainstBase}}</span>
+          <span>1 USD = {{targetCurrency.code}} {{targetCurrency.rateAgainstBase}}</span>
         </div>
       </div>
     </div>
     <div
       class="col-2 col-md-1 d-flex justify-content-center align-items-center btn btn-danger rounded-0"
-      @click="destroyCurrency(exchangeCurrency.code)"
+      @click="destroyCurrency(targetCurrency.code)"
     >
       <font-awesome-icon icon="times" size="lg" class="color-white"/>
     </div>
@@ -37,7 +37,7 @@ import { mapMutations, mapActions } from "vuex";
 export default Vue.extend({
   name: "ExchangeCurrency",
   props: {
-    exchangeCurrency: Object as () => CurrencyModel
+    targetCurrency: Object as () => CurrencyModel
   },
   methods: {
     formatCurrency(amount: number) {
