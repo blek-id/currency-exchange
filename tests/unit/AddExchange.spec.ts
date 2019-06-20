@@ -1,23 +1,33 @@
 import { shallowMount, Wrapper } from '@vue/test-utils';
 import AddExchange from '@/components/AddExchange.vue';
 import store from "@/store";
-import router from "@/router";
 import { CombinedVueInstance } from 'vue/types/vue';
 
 let wrapper: Wrapper<CombinedVueInstance<AddExchange, object, object, object, Record<never, any>>>;
 
 describe('AddExchange.vue', () => {
   beforeEach(() => {
-    wrapper = shallowMount(AddExchange, { store, router });
+    wrapper = shallowMount(AddExchange, { store });
   })
 
-  it('should show select element for adding new currencies when button is clicked', () => {
-    const spy = jest.fn();
-    wrapper.setProps({
-      toggleAddCurrency: spy
-    })
-    const button = wrapper.find("input[type='button']");
+  it('show options for adding new currencies when button is clicked', () => {
+
+    const button = wrapper.find("input[value='Add More Currencies']");
     button.trigger('click');
-    expect(wrapper.contains("select")).toBe(true);
+
+    expect(wrapper.contains("select"))
+      .toBe(true);
   })
+
+  it('show add more currencies button when submit is clicked', () => {
+
+    wrapper.vm.$data.isAddingCurrency = true
+
+    const button = wrapper.find("input[value='Submit']");
+    button.trigger('click');
+
+    expect(wrapper.contains("select"))
+      .toBe(false);
+  })
+
 });
