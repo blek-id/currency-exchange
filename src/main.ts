@@ -5,16 +5,16 @@ import store from './store/index';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-//FontAwesome Icons
+// FontAwesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-//Add icons to library
+// Add icons to library
 import { faTimes, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 library.add(faTimes);
 library.add(faMinusCircle);
 
-//Registering fontawesome component
+// Registering fontawesome component
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.config.productionTip = false;

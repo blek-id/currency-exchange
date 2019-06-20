@@ -1,4 +1,4 @@
 export interface CountryExchangeModel {
-    code: string,
-    isActive: boolean
+    code: string;
+    isActive: boolean;
 }

@@ -34,35 +34,35 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapGetters, mapActions } from "vuex";
+import Vue from 'vue';
+import { mapGetters, mapActions } from 'vuex';
 
 export default Vue.extend({
-  name: "AddExchange",
-  data: function() {
+  name: 'AddExchange',
+  data() {
     return {
-      isAddingCurrency: false
+      isAddingCurrency: false,
     };
   },
   computed: {
-    ...mapGetters("currencies", ["getAvailableExchanges"]),
+    ...mapGetters('currencies', ['getAvailableExchanges']),
     selectedCurrency(): string {
-      if (this.$store.getters["currencies/getAvailableExchanges"].length > 0) {
-        return this.$store.getters["currencies/getAvailableExchanges"][0].code;
+      if (this.$store.getters['currencies/getAvailableExchanges'].length > 0) {
+        return this.$store.getters['currencies/getAvailableExchanges'][0].code;
       } else {
-        return "";
+        return '';
       }
-    }
+    },
   },
   methods: {
     toggleAddCurrency(isAddingCurrency: boolean) {
       this.isAddingCurrency = isAddingCurrency;
     },
     addCurrency() {
-      this.$store.dispatch("currencies/fetchCurrencies", this.selectedCurrency);
+      this.$store.dispatch('currencies/fetchCurrencies', this.selectedCurrency);
       this.toggleAddCurrency(false);
-    }
-  }
+    },
+  },
 });
 </script>
 

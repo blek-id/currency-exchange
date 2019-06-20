@@ -30,28 +30,28 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { CurrencyModel } from "@/models/CurrencyModel";
-import { mapMutations, mapActions } from "vuex";
+import Vue from 'vue';
+import { CurrencyModel } from '@/models/CurrencyModel';
+import { mapMutations, mapActions } from 'vuex';
 
 export default Vue.extend({
-  name: "ExchangeCurrency",
+  name: 'ExchangeCurrency',
   props: {
-    targetCurrency: Object as () => CurrencyModel
+    targetCurrency: Object as () => CurrencyModel,
   },
   methods: {
     formatCurrency(amount: number) {
       return amount.toLocaleString(undefined, { maximumFractionDigits: 2 });
     },
     destroyCurrency(code: string) {
-      this.$store.commit("currencies/removeCurrency", code);
-      let payload = {
-        code: code,
-        isActive: false
+      this.$store.commit('currencies/removeCurrency', code);
+      const payload = {
+        code,
+        isActive: false,
       };
-      this.$store.commit("currencies/updateAvailableExchanges", payload);
-    }
-  }
+      this.$store.commit('currencies/updateAvailableExchanges', payload);
+    },
+  },
 });
 </script>
 

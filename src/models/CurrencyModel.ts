@@ -1,6 +1,7 @@
 export interface CurrencyModel {
-    code: string,
-    name: string,
-    rateAgainstBase: number,
-    exchangeAmount: number
+    code: string;
+    name: string;
+    rateAgainstBase: number;
+    exchangeAmount: number;
 }
+
