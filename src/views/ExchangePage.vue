@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <base-currency/>
     <div v-for="currency in getCurrencies" :key="currency.code">
-      <exchange-currency :target-currency="currency" v-if="currency !== {}"/>
+      <exchange-currency :target-currency="currency" v-if="currency.code !== ''"/>
     </div>
     <add-exchange/>
   </div>

@@ -26,8 +26,8 @@ const state = {
 };
 
 const getters = {
-    getCurrencies: (state: any) => state.currencies,
-    getAvailableExchanges: (state: any) => (state.availableExchanges
+    getCurrencies: (myState: any) => myState.currencies,
+    getAvailableExchanges: (myState: any) => (myState.availableExchanges
         .filter((availableExchange: any) => !availableExchange.isActive)),
 };
 
@@ -46,7 +46,12 @@ const actions = {
             .map((availableExchange) => availableExchange.code);
 
         const joinedCodes = activeExchangeCodes.join(',');
-        const response = await axios.get(`https://api.exchangeratesapi.io/latest?base=USD&symbols=${joinedCodes}`);
+        const response = await axios.get(`https://api.exchangeratesapi.io/latest`, {
+            params: {
+                base: 'USD',
+                symbols: joinedCodes,
+            },
+        });
         const rawExchangeData = response.data;
 
         state.currencies = [];
@@ -67,28 +72,28 @@ const actions = {
 };
 
 const mutations = {
-    setCurrencies(state: any, currencies: any) {
-        state.currencies = currencies;
+    setCurrencies(myState: any, currencies: any) {
+        myState.currencies = currencies;
     },
-    setBaseAmount(state: any, baseAmount: number) {
-        state.currencies
+    setBaseAmount(myState: any, baseAmount: number) {
+        myState.currencies
             .forEach((currency: any) => {
                 currency.exchangeAmount = currency.rateAgainstBase * baseAmount;
             });
-        state.baseAmount = baseAmount;
+        myState.baseAmount = baseAmount;
     },
-    removeCurrency(state: any, code: string) {
-        state.currencies = state.currencies
+    removeCurrency(myState: any, code: string) {
+        myState.currencies = myState.currencies
             .filter((currency: CurrencyModel) => currency.code !== code);
     },
-    updateAvailableExchanges(state: any, payload: any) {
-        const selectedExchangeIndex = state.availableExchanges
+    updateAvailableExchanges(myState: any, payload: any) {
+        const selectedExchangeIndex = myState.availableExchanges
             .findIndex((availableExchange: any) => availableExchange.code === payload.code);
 
-        state.availableExchanges = [
-            ...state.availableExchanges.slice(0, selectedExchangeIndex),
+        myState.availableExchanges = [
+            ...myState.availableExchanges.slice(0, selectedExchangeIndex),
             { code: payload.code, isActive: payload.isActive },
-            ...state.availableExchanges.slice(selectedExchangeIndex + 1),
+            ...myState.availableExchanges.slice(selectedExchangeIndex + 1),
         ];
     },
 };
